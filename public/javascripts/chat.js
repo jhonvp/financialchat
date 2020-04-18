@@ -1,7 +1,7 @@
 const chatForm = document.querySelector("#sendEmail");
 const chatMessages = document.querySelector("#emailTest");
 const userList = document.querySelector("#users");
-
+const chatMessagesArea = document.querySelector(".chat-messages");
 const userIdSpan = document.querySelector("#userId");
 const usernameSpan = document.querySelector("#username");
 const roomSpan = document.querySelector("#room");
@@ -9,8 +9,17 @@ const statusSpan = document.querySelector("#status");
 const closeSessionBtn = document.querySelector("#closeSession");
 
 const socket = io();
+let messages = [];
 // Join chatroom
 socket.emit("joinRoom", { username, room });
+
+// Get room and users
+socket.on("roomMessages", ({ info }) => {
+  if (info) {
+    messages.push(...info.reverse());
+  }
+  outputMessages();
+});
 
 // Get room and users
 socket.on("roomUsers", ({ users }) => {
@@ -25,15 +34,15 @@ socket.on("message", (message) => {
     roomSpan.innerHTML = message.userData.room;
     statusSpan.innerHTML = message.userData.status;
   }
-  outputMessage(message);
+  messages.push(message.messageData);
+  outputMessages();
   // Scroll down
-  chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
-socket.on('disconnect', () => {
+socket.on("disconnect", () => {
   alert("There was an error on the server.");
-  document.location.href="/";
-})
+  document.location.href = "/";
+});
 
 // Message submit
 chatForm.addEventListener("click", (e) => {
@@ -52,7 +61,7 @@ chatForm.addEventListener("click", (e) => {
 
 closeSessionBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  document.location.href="/";
+  document.location.href = "/";
 });
 
 chatMessages.addEventListener("keypress", function (e) {
@@ -70,38 +79,32 @@ chatMessages.addEventListener("keypress", function (e) {
 });
 
 // Output message to DOM
-function outputMessage(message) {
+function outputMessages() {
   const div = document.createElement("div");
   div.classList.add("incoming_msg");
-  if (message.isBotMessage) {
-    div.innerHTML = `
-      
-    <div class="outgoing_msg">
-    <div class="sent_msg">
-    <p> Bot Message ${message.messageData.username} !!! ${
-      message.messageData.text
-    }</p>
-    <span class="time_date">${new Date(
-      message.messageData.time
-    ).toLocaleString()}</span>
-    </div>
-</div>
-  `;
-  } else {
-    div.innerHTML = `
-    <div class="incoming_msg_img"> ${message.messageData.username} </div>
+  messages = messages.slice(-50);
+
+  messagesHTML = messages.map((message) => {
+    return `
+    <div class="incoming_msg_img"> ${message.username} </div>
     <div class="received_msg">
         <div class="received_withd_msg">
-            <p>${message.messageData.text}</p>
+            <p>${message.text}</p>
             <span class="time_date">${new Date(
-              message.messageData.time
+              message.time
             ).toLocaleString()}</span>
         </div>
     </div>
   `;
-  }
-
-  document.querySelector(".chat-messages").appendChild(div);
+  });
+  div.innerHTML = messagesHTML.join("");
+  chatMessagesArea.innerHTML = "";
+  chatMessagesArea.appendChild(div);
+  chatMessagesArea.focus();
+  chatMessagesArea.scrollTop = chatMessagesArea.scrollHeight;
+  chatMessages.value = "";
+  chatMessages.focus();
+  chatMessages.focus();
 }
 
 // Add users to DOM
