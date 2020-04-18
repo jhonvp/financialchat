@@ -4,6 +4,12 @@ const env = process.env.NODE_ENV || "development";
 const config = require(path.join(__dirname, "..", "config", "mongodb.json"))[
   env
 ];
+const controllerUser = require(path.join(
+  __dirname,
+  "..",
+  "controllers",
+  "users"
+));
 const MONGODB_URL = config.MONGODB_URL;
 const log = require("./logConfiguration");
 const mongodbConnector = () => {
@@ -26,10 +32,19 @@ const mongodbConnector = () => {
     log.debug(`The database was disconnected.`);
   });
   process.on("SIGINT", () => {
-    mongoose.connection.close(function () {
-      log.debug(`The application was closed.`);
-      process.exit(0);
-    });
+   
+      
+      controllerUser.usersLeave( (error) => {
+        log.debug(`The database was cleaned.`);
+        mongoose.connection.close(function () {
+          log.debug(`The application was closed.`);
+          process.exit(0);
+        });
+      });
+      
+   
+
+    
   });
 };
 module.exports = mongodbConnector;

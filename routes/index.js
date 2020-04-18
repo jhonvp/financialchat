@@ -17,7 +17,7 @@ const chatController = require(path.join(
 /* GET home page. */
 router.get("/", indexController.getIndex);
 
-/* POST home page. */
-router.post("/join", chatController.join);
+/* GET join the room. */
+router.get("/join", chatController.join);
 
 module.exports = router;

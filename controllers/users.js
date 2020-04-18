@@ -65,6 +65,19 @@ userController.getRoomUsers = function (room, cb) {
  
 };
 
+userController.usersLeave = async (cb) => {
+  const deleteUsers = Users.deleteMany({});
+  const promise = deleteUsers.exec();
+  promise
+    .then(() => {
+      return cb(null);
+    })
+    .catch((error) => {
+      log.error(`There is an error cleaning the users`);
+      log.error(error);
+      return cb(`There is an error cleaning the users`, null);
+    });
+};
 
 
 module.exports = userController;

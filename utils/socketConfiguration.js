@@ -25,12 +25,8 @@ module.exports = async (app) => {
       let message = {
         isWelcomeMessage,
         isBotMessage,
-        messageData: {
-
-        },
-        userData: {
-
-        }
+        messageData: {},
+        userData: {},
       };
       message.messageData.username = username;
       if (isBotMessage) {
@@ -51,7 +47,6 @@ module.exports = async (app) => {
 
     socket.on("joinRoom", async ({ username, room }) => {
       controllerUser.userJoin(socket.id, username, room, (error, user) => {
-        
         if (error) {
           // Welcome current user
           socket.emit(
@@ -111,7 +106,15 @@ module.exports = async (app) => {
       controllerUser.getCurrentUser(socket.id, (error, user) => {
         io.to(user.room).emit(
           "message",
-          formatMessage(false, false, user.username, user.room, error, msg, false)
+          formatMessage(
+            false,
+            false,
+            user.username,
+            user.room,
+            error,
+            msg,
+            false
+          )
         );
       });
     });

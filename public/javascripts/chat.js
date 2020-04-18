@@ -6,9 +6,9 @@ const userIdSpan = document.querySelector("#userId");
 const usernameSpan = document.querySelector("#username");
 const roomSpan = document.querySelector("#room");
 const statusSpan = document.querySelector("#status");
+const closeSessionBtn = document.querySelector("#closeSession");
 
 const socket = io();
-
 // Join chatroom
 socket.emit("joinRoom", { username, room });
 
@@ -26,10 +26,14 @@ socket.on("message", (message) => {
     statusSpan.innerHTML = message.userData.status;
   }
   outputMessage(message);
-
   // Scroll down
   chatMessages.scrollTop = chatMessages.scrollHeight;
 });
+
+socket.on('disconnect', () => {
+  alert("There was an error on the server.");
+  document.location.href="/";
+})
 
 // Message submit
 chatForm.addEventListener("click", (e) => {
@@ -44,6 +48,11 @@ chatForm.addEventListener("click", (e) => {
   // Clear input
   chatMessages.value = "";
   chatMessages.focus();
+});
+
+closeSessionBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  document.location.href="/";
 });
 
 chatMessages.addEventListener("keypress", function (e) {
