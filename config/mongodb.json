@@ -1,0 +1,14 @@
+{
+  "development": {
+    "MONGODB_URL": "mongodb://financialchatapp:test1234@ds013848.mlab.com:13848/financialchat",
+    "MONGODB_DATABASE": "financialchat"
+  },
+  "test": {
+    "MONGODB_URL": "mongodb://financialchatapp:test1234@ds013848.mlab.com:13848/financialchat",
+    "MONGODB_DATABASE": "financialchat"
+  },
+  "production": {
+    "MONGODB_URL": "mongodb://financialchatapp:test1234@ds013848.mlab.com:13848/financialchat",
+    "MONGODB_DATABASE": "financialchat"
+  }
+}
