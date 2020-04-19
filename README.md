@@ -56,11 +56,6 @@ npm restart
 
 ## Test Project
 
-* **Prerequisite**
-```
-npm install mocha -g
-```
-
 * **Install dependencies**
 ```
 npm install
