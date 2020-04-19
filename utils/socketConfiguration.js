@@ -61,10 +61,9 @@ module.exports = async (app) => {
       }
       return cb(null, message);
     });
-  }
+  };
   // Run when client connects
   io.on("connection", (socket) => {
-
     socket.on("joinRoom", async ({ username, room }) => {
       userController.userJoin(socket.id, username, room, (error, user) => {
         if (error) {

@@ -17,27 +17,25 @@ module.exports = (io) => {
 
   client.on("message", function (topic, message) {
     const messageInformation = message.toString().split(";");
-   
-    console.log(message.toString());
 
     io.processMessage(
-        false,
-        true,
-        io.botName,
-        messageInformation[3],
-        '',
-        messageInformation[1],
-        messageInformation[2],
-        true,
-        false,
-        (error, message) => {
-          if (error) {
-            log.error(`There was an error socket.chatMessage`);
-            log.error(error);
-          }
-          io.to(messageInformation[3]).emit("message", message);
+      false,
+      true,
+      io.botName,
+      messageInformation[3],
+      "",
+      messageInformation[1],
+      messageInformation[2],
+      true,
+      false,
+      (error, message) => {
+        if (error) {
+          log.error(`There was an error socket.chatMessage`);
+          log.error(error);
         }
-      );
+        io.to(messageInformation[3]).emit("message", message);
+      }
+    );
   });
 
   return client;

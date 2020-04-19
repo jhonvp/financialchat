@@ -3,13 +3,13 @@ const Messages = require(path.join(__dirname, "..", "models", "messages"));
 const log = require(path.join(__dirname, "..", "utils", "logConfiguration"));
 const messageController = {};
 
-messageController.saveMessage = function (information, cb)  {
+messageController.saveMessage = function (information, cb) {
   const message = new Messages({
     userid: information.userid,
-    username:  information.username,
+    username: information.username,
     room: information.room,
     text: information.text,
-    visible: information.visible
+    visible: information.visible,
   });
   message.save((error, message) => {
     if (error) {
@@ -21,24 +21,24 @@ messageController.saveMessage = function (information, cb)  {
   });
 };
 
-
-
-messageController.lastMessages = function (room,limit, cb)  {
-    const findMessages = Messages.find({ room: room, visible: true }).sort('-time').limit(limit);
-    const promise = findMessages.exec();
-    promise.then((messages)=>{
-      if(!messages){
+messageController.lastMessages = function (room, limit, cb) {
+  const findMessages = Messages.find({ room: room, visible: true })
+    .sort("-time")
+    .limit(limit);
+  const promise = findMessages.exec();
+  promise
+    .then((messages) => {
+      if (!messages) {
         return cb(null, []);
-      }else{
+      } else {
         return cb(null, messages);
       }
-  
-    }).catch((error)=>{
+    })
+    .catch((error) => {
       log.error(`There is an error getting messages in room ${room}`);
       log.error(error);
       return cb(`There is an error getting messages in room ${room}`, null);
     });
-  };
-
+};
 
 module.exports = messageController;

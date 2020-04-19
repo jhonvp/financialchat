@@ -32,19 +32,13 @@ const mongodbConnector = () => {
     log.debug(`The database was disconnected.`);
   });
   process.on("SIGINT", () => {
-   
-      
-      controllerUser.usersLeave( (error) => {
-        log.debug(`The database was cleaned.`);
-        mongoose.connection.close(function () {
-          log.debug(`The application was closed.`);
-          process.exit(0);
-        });
+    controllerUser.usersLeave((error) => {
+      log.debug(`The database was cleaned.`);
+      mongoose.connection.close(function () {
+        log.debug(`The application was closed.`);
+        process.exit(0);
       });
-      
-   
-
-    
+    });
   });
 };
 module.exports = mongodbConnector;
