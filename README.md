@@ -29,6 +29,13 @@ Navigate to `http://localhost:3000/`.
 
 Navigate to [http://167.172.216.74:3000/](http://167.172.216.74:3000/).
 
+## Features
+
+It allows the users to users to log in and talk with other users in a chatroom.
+It allows to have multiple chat rooms.
+It keeps the history of the last 50 messages in the chat room.
+It communicates with the chat bot (only one command is implemented)
+
 ## Commands
 
 All messages on the chat that starts with `/` is recognize as a command.
