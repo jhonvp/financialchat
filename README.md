@@ -54,6 +54,23 @@ npm stop
 npm restart
 ```
 
+## Test Project
+
+* **Prerequisite**
+```
+npm install mocha -g
+```
+
+* **Install dependencies**
+```
+npm install
+```
+
+* **Test each project**
+```
+npm test
+```
+
 ## Online
 
 Navigate to [http://167.172.216.74:3000/](http://167.172.216.74:3000/).
