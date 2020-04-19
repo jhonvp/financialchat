@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "pm2 start ./bin/financialchat",
-    "test": "node ./bin/financialchat"
+    "stop": "pm2 stop ./bin/financialchat",
+    "restart": "pm2 restart ./bin/financialchat"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
