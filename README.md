@@ -18,12 +18,32 @@ You need to download the respositories a run each one using the following comman
 2. financialbot
 3. financialchat
 
+* **Prerequisite**
 ```
 npm install pm2 -g
+```
+
+* **Install dependencies**
+```
 npm install
+```
+
+* **Start each project**
+```
 npm start
 ```
+
 Navigate to `http://localhost:3000/`.
+
+* **Stop each project**
+```
+npm stop
+```
+
+* **Restart each project**
+```
+npm restart
+```
 
 ## Online
 
