@@ -7,7 +7,7 @@ The application will implement the below design where we expose a chat based on 
 The project is based on the following repositories:
 
 1. [financialchat](https://github.com/jhonvp/financialchat) It renders the front end and handle the chat feature.
-2. [financialchat](https://github.com/jhonvp/financialmqttbroker) It allows the communication between the chat server and the chat bot.
+2. [financialmqttbroker](https://github.com/jhonvp/financialmqttbroker) It allows the communication between the chat server and the chat bot.
 3. [financialbot](https://github.com/jhonvp/financialbot) It communicates with the financial chat via the mqttbroker.
 
 ## Technologies
